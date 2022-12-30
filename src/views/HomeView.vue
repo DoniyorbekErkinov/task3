@@ -56,7 +56,7 @@
 <script>
 // eslint-disable vue/no-unused-components 
 import SignInLoginForm from '@/components/SignInLoginForm.vue';
-import axios from 'axios'
+import ApiService from '@/service/ApiService';
 import StarRating from 'vue-star-rating'
 export default {
   name: 'HomeView',
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get('http://demo0684927.mockable.io/get-products').then(res => {
+      ApiService.getProducts().then(res => {
         this.products = res.data.result
       })
     },
@@ -91,10 +91,17 @@ export default {
     },
     rateProduct() {
       if(this.token) {            
-        axios.post(`http://demo0684927.mockable.io/rate?productid=${this.currentItem.productId}&rating=${this.rating}`).then(res => {
-          this.modal = false
-          alert(res.data.success)
-        })
+        if(this.rating !== 0) {
+          ApiService.rateProduct({
+            productId: this.currentItem.productId,
+            rating: this.rating
+          }).then(res => {
+            this.modal = false
+            alert(res.data.success)
+          })
+        } else {
+          alert("Please rate before submit")
+        }
       } else {
         this.openSignIn = true
       }

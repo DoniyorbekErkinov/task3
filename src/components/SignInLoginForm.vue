@@ -21,7 +21,7 @@
 
 <script setup>
 import { ref, defineEmits } from 'vue';
-import axios from 'axios';
+import ApiService from '../service/ApiService';
 const emit = defineEmits(['close'])
 const formLogin = ref({
     username: "",
@@ -29,7 +29,10 @@ const formLogin = ref({
 })
 function handleLogin(e) {
     e.preventDefault();
-    axios.post(`http://demo0684927.mockable.io/login?username=${formLogin.value.username}&password=${formLogin.value.password}`).then(res => {
+    ApiService.signIn({
+        username: formLogin.value.username,
+        password: formLogin.value.password
+    }).then(res => {
         localStorage.setItem('token',res.data.data.acceess_token);
         location.reload()
     })
