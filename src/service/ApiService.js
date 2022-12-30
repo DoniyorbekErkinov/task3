@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const ApiService = {
+  /**
+   * keraklik service larni yasab olindi
+   */
   getProducts() {
     return axios.get('http://demo0684927.mockable.io/get-products')
   },

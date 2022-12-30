@@ -64,6 +64,7 @@ export default {
     StarRating,
     SignInLoginForm
 },
+// variable lar yasab olindi
   data() {
     return {
       products: [],
@@ -76,11 +77,13 @@ export default {
     }
   },
   methods: {
+    // productlarni olindi
     getData() {
       ApiService.getProducts().then(res => {
         this.products = res.data.result
       })
     },
+    // rating component ga ratingni beradi
     ratingOfProduct(item) {
       let ratingScore = 0
       item.forEach(el => {
@@ -89,7 +92,13 @@ export default {
       ratingScore = ratingScore / item.length
       return Number.parseFloat(ratingScore.toFixed(2))
     },
+    // productni baholaydi
     rateProduct() {
+      /**
+       * tokenga tekshiriladi
+       * ratingga tekshiriladi
+       * ApiService dagi rateProduct methodga so'rov cho'natiladi
+       */
       if(this.token) {            
         if(this.rating !== 0) {
           ApiService.rateProduct({
@@ -106,6 +115,7 @@ export default {
         this.openSignIn = true
       }
     },
+    // modal ni ochadi
     openModal(item) {
       this.itemName = item.name
       this.currentItem = item
@@ -113,6 +123,7 @@ export default {
     }
   },
   created() {
+    // malumotlarni olib tokenga tekshiradi
     this.getData()
     this.token = !!localStorage.getItem('token')
   }

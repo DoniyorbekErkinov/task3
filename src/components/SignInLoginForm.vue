@@ -1,7 +1,9 @@
 <template>
     <div class="relative">
+        <!-- background blur -->
         <div @click="close" class="fixed z-40 bg-black/50 top-0 right-0 left-0 bottom-0">
         </div>
+        <!-- sign in form -->
         <form 
         x-show.transition.opacity.duration.700ms="open"
         class="absolute flex text-center flex-col z-50 inset-x-0 shadow-indigo-100 shadow-md p-4 bg-gray-50 w-3/4 md:w-2/5 mx-auto top-[60%] rounded-lg "
@@ -27,6 +29,9 @@ const formLogin = ref({
     username: "",
     password: ""
 })
+/**
+ * Sign in
+ */
 function handleLogin(e) {
     e.preventDefault();
     ApiService.signIn({
